@@ -1,11 +1,3 @@
-/**
- * 🚫 제한 사항
- *
- * 1. 2 depth까지 허용
- * 2. 함수는 한 가지 일만
- * 3. 함수 10줄 제한
- */
-
 const form = <HTMLInputElement>document.getElementById("form");
 const username = <HTMLInputElement>document.getElementById("username");
 const email = <HTMLInputElement>document.getElementById("email");
@@ -17,6 +9,7 @@ const password2 = <HTMLInputElement>document.getElementById("password2");
  * 전체 inputs 유효성 검사
  * @returns {boolean}
  */
+
 function checkRequired() {
   let check = true;
   if (!checkLength(username, password)) check = false;
@@ -35,6 +28,7 @@ function checkRequired() {
  * @param {password}
  * @returns {boolean}
  */
+
 function checkLength(name: HTMLInputElement, pwd: HTMLInputElement) {
   let check = true;
   if (name.value.length < 4 || name.value.length > 10) {
@@ -53,6 +47,7 @@ function checkLength(name: HTMLInputElement, pwd: HTMLInputElement) {
  * @param {email.value}
  * @returns {boolean}
  */
+
 function checkEmail(inputEmail: string) {
   let check = true;
   if (!inputEmail.includes("@")) check = false;
@@ -76,6 +71,7 @@ function checkEmail(inputEmail: string) {
  * @param {password2.value}
  * @returns {boolean}
  */
+
 function checkPasswordsMatch(setPwd: string, confirmPwd: string) {
   if (setPwd !== confirmPwd) {
     toggleError(password2);
@@ -91,6 +87,7 @@ function checkPasswordsMatch(setPwd: string, confirmPwd: string) {
  * @param {HTMLInputElement}
  * @returns {boolean}
  */
+
 function toggleError(target: HTMLInputElement) {
   target.parentElement!.className = "form-control error";
   const errorText = target.parentElement?.querySelector("small");
@@ -116,6 +113,7 @@ function toggleError(target: HTMLInputElement) {
  * @param {HTMLInputElement}
  * @returns {boolean}
  */
+
 function toggleSuccess(target: HTMLInputElement) {
   target.parentElement!.className = "form-control";
 }

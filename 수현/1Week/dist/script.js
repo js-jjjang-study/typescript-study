@@ -1,11 +1,4 @@
 "use strict";
-/**
- * 🚫 제한 사항
- *
- * 1. 2 depth까지 허용
- * 2. 함수는 한 가지 일만
- * 3. 함수 10줄 제한
- */
 const form = document.getElementById("form");
 const username = document.getElementById("username");
 const email = document.getElementById("email");
