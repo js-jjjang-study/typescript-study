@@ -86,7 +86,7 @@ function checkPasswordsMatch(setPwd, confirmPwd) {
 /**
  * Show error messages under specific inputs
  * @param {HTMLInputElement}
- * @returns {boolean}
+ * @returns {void}
  */
 function toggleError(target) {
     var _a;

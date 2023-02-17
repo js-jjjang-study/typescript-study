@@ -7,7 +7,7 @@ const password2 = <HTMLInputElement>document.getElementById("password2");
 /**
  * checkRequired() to accept array of inputs
  * 전체 inputs 유효성 검사
- * @returns {boolean}
+ * @return {boolean} isAllow?
  */
 
 function checkRequired() {
@@ -24,9 +24,9 @@ function checkRequired() {
  * username (min: 4, max:10)
  * email *except domain (min: 4, max: 64)
  * password (min: 10, max: 20)
- * @param {username}
- * @param {password}
- * @returns {boolean}
+ * @param {HTMLInputElement} username
+ * @param {HTMLInputElement} password
+ * @return {boolean}
  */
 
 function checkLength(name: HTMLInputElement, pwd: HTMLInputElement) {
@@ -44,8 +44,8 @@ function checkLength(name: HTMLInputElement, pwd: HTMLInputElement) {
 
 /**
  * checkEmail() to validate email with regex
- * @param {email.value}
- * @returns {boolean}
+ * @param {string} email.value
+ * @return {boolean} isAllow?
  */
 
 function checkEmail(inputEmail: string) {
@@ -67,9 +67,9 @@ function checkEmail(inputEmail: string) {
 
 /**
  * checkPasswordsMatch() to match confirm password
- * @param {password.value}
- * @param {password2.value}
- * @returns {boolean}
+ * @param {string} password.value
+ * @param {string} password2.value
+ * @return {boolean} isAllow?
  */
 
 function checkPasswordsMatch(setPwd: string, confirmPwd: string) {
@@ -84,8 +84,8 @@ function checkPasswordsMatch(setPwd: string, confirmPwd: string) {
 
 /**
  * Show error messages under specific inputs
- * @param {HTMLInputElement}
- * @returns {boolean}
+ * @param {HTMLInputElement} target with error
+ * @return {void}
  */
 
 function toggleError(target: HTMLInputElement) {
@@ -110,8 +110,8 @@ function toggleError(target: HTMLInputElement) {
 
 /**
  * success or delete error messages under specific inputs
- * @param {HTMLInputElement}
- * @returns {boolean}
+ * @param {HTMLInputElement} allowed target
+ * @return {void}
  */
 
 function toggleSuccess(target: HTMLInputElement) {
