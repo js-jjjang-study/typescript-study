@@ -4,22 +4,6 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
 
-const blankStatus = {
-  username: false,
-  email: false,
-  password: false,
-  password2: false,
-};
-
-// blankStatus가 true인 값에 한해서만 진행하며
-// 최종적으로 이게 true면 완료인 것이다
-const validateStatus = {
-  username: false,
-  email: false,
-  password: false,
-  password2: false,
-};
-
 // Show input error message
 function showError(input, message) {
   const formControl = input.parentElement;
@@ -35,7 +19,7 @@ function showSuccess(input) {
 }
 
 // Check input length
-function checkLength(input, min, max) {
+function checkLength(input, min, max,validateStatus) {
   if (input.value.length < min) {
     showError(input, `${input.id} must be at least ${min} characters`);
   } else if (input.value.length > max) {
@@ -47,7 +31,7 @@ function checkLength(input, min, max) {
 }
 
 // Check email is valid
-function checkEmail(input) {
+function checkEmail(input,validateStatus) {
   const regex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (regex.test(input.value.trim())) {
@@ -60,7 +44,7 @@ function checkEmail(input) {
 }
 
 // Check passwords match
-function checkPasswordsMatch(input1, input2) {
+function checkPasswordsMatch(input1, input2,validateStatus) {
   console.log(input1.value, input2.value);
   if (input1.value !== input2.value) {
     showError(input2, 'Passwords do not match');
@@ -70,7 +54,7 @@ function checkPasswordsMatch(input1, input2) {
   }
 }
 
-const checkRequired = (inputs) => {
+const checkRequired = (inputs,blankStatus) => {
   inputs.forEach((i, index) => {
     // 띄워쓰기만 있는 경우도 방지해야 하므로 .length는 적절하지 않음
     if (i.value.trim() !== '') {
@@ -79,7 +63,7 @@ const checkRequired = (inputs) => {
   });
 };
 
-const showBlankError = () => {
+const showBlankError = (blankStatus) => {
   for (let i in blankStatus) {
     let inputName = i;
     if (blankStatus[inputName] === false) {
@@ -103,34 +87,54 @@ const showBlankError = () => {
   }
 };
 
-const checkValidate = () => {
+const checkValidate = (blankStatus,validateStatus) => {
+  
   for (let i in blankStatus) {
     let inputName = i;
     if (blankStatus[inputName] === false) continue;
 
     switch (inputName) {
       case 'username':
-        checkLength(username, 3, 15);
+        checkLength(username, 3, 15,validateStatus);
         break;
       case 'email':
-        checkEmail(email);
+        checkEmail(email,validateStatus);
         break;
       case 'password':
-        checkLength(password, 6, 25);
+        checkLength(password, 6, 25,validateStatus);
         break;
       case 'password2':
-        checkPasswordsMatch(password, password2);
+        checkPasswordsMatch(password, password2,validateStatus);
         break;
     }
   }
 };
 
+// 다시 submit했을 경우 기존의 상태값을 죄다 false로 다시 초기화 해야 함
 const checkAll = () => {
-  checkRequired([username, email, password, password2]);
-  showBlankError();
+
+  const blankStatus = {
+    username: false,
+    email: false,
+    password: false,
+    password2: false,
+  };
+  
+  // blankStatus가 true인 값에 한해서만 진행하며
+  // 최종적으로 이게 true면 완료인 것이다
+  const validateStatus = {
+    username: false,
+    email: false,
+    password: false,
+    password2: false,
+  };
+
+
+  checkRequired([username, email, password, password2],blankStatus);
+  showBlankError(blankStatus);
 
   // balnkError와는 달리 유효성 검사와 에러 or 성공 이벤트를 동시에 진행합니다
-  checkValidate();
+  checkValidate(blankStatus,validateStatus);
 };
 form.addEventListener('submit', (e) => {
   e.preventDefault();
