@@ -28,3 +28,4 @@ function clickSeat (e: Event) {
 }
 
 seats.forEach(el => el.addEventListener('click', clickSeat));
+movie.addEventListener('change', changeInfo);
