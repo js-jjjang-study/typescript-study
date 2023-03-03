@@ -1,6 +1,7 @@
 const video = document.getElementById('video') as HTMLVideoElement;
 const playBtn = document.getElementById('play') as HTMLButtonElement;
 const stopBtn = document.getElementById('stop') as HTMLButtonElement;
+const timestamp = document.getElementById('timestamp');
 const i = playBtn.firstChild?.nextSibling as HTMLElement;
 const classList = i.classList;
 
@@ -36,6 +37,28 @@ function videoStop() {
   return;
 }
 
+function displayTime() {
+  const min = Math.floor(video.currentTime / 60);
+  const sec = Math.floor(video.currentTime % 60);
+  let str = '';
+  
+  if(min < 10) {
+    str += '0' + `${min}:`;
+  } else {
+    str += `${min}:`;
+  }
+
+  if(sec < 10) {
+    str += '0' + `${sec}`;
+  } else {
+    str += `${sec}`;
+  }
+  
+  timestamp!.innerHTML = str;
+  return;
+}
+
+video.addEventListener('timeupdate', displayTime);
 video.addEventListener('click', videoPlay);
 playBtn.addEventListener('click', playOrPause);
 stopBtn.addEventListener('click', videoStop);
