@@ -31,7 +31,9 @@ function videoPause() {
 }
 
 function videoStop() {
-
+  classList.replace('fa-pause', 'fa-play');
+  video.load();
+  return;
 }
 
 video.addEventListener('click', videoPlay);
