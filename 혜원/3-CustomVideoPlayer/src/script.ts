@@ -2,6 +2,8 @@ const video = document.getElementById('video') as HTMLVideoElement;
 const playBtn = document.getElementById('play') as HTMLButtonElement;
 const stopBtn = document.getElementById('stop') as HTMLButtonElement;
 const timestamp = document.getElementById('timestamp');
+let duration: number = 0;
+const progress = document.getElementById('progress') as HTMLInputElement;
 const i = playBtn.firstChild?.nextSibling as HTMLElement;
 const classList = i.classList;
 
@@ -53,12 +55,21 @@ function displayTime() {
   } else {
     str += `${sec}`;
   }
-  
+
   timestamp!.innerHTML = str;
   return;
 }
 
+function progressMove() {
+  if(duration !== 0) {
+    progress.stepUp(1000 / (duration * 4));
+  }
+}
+
 video.addEventListener('timeupdate', displayTime);
+video.addEventListener('timeupdate', progressMove);
 video.addEventListener('click', videoPlay);
+video.addEventListener('loadeddata', () => {duration = video.duration});
+
 playBtn.addEventListener('click', playOrPause);
 stopBtn.addEventListener('click', videoStop);
