@@ -75,6 +75,7 @@ video.addEventListener('timeupdate', displayTime);
 video.addEventListener('timeupdate', progressMove);
 video.addEventListener('click', videoPlay);
 video.addEventListener('loadeddata', () => {duration = video.duration});
+video.addEventListener('ended', videoPause);
 
 progress.addEventListener('change', setCurrentTime);
 
