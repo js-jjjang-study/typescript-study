@@ -62,12 +62,12 @@ function displayTime() {
 
 function progressMove() {
   if(duration !== 0) {
-    progress.value = ((video.currentTime * 100) / duration).toString();
+    progress.value = ((video.currentTime * Number(progress.max)) / duration).toString();
   }
 }
 
 function setCurrentTime() {
-  video.currentTime = duration * Number(progress.value) / 100;
+  video.currentTime = duration * Number(progress.value) / Number(progress.max);
   return;
 }
 
