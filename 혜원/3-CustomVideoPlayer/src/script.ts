@@ -62,14 +62,21 @@ function displayTime() {
 
 function progressMove() {
   if(duration !== 0) {
-    progress.stepUp(1000 / (duration * 4));
+    progress.value = ((video.currentTime * 100) / duration).toString();
   }
+}
+
+function setCurrentTime() {
+  video.currentTime = duration * Number(progress.value) / 100;
+  return;
 }
 
 video.addEventListener('timeupdate', displayTime);
 video.addEventListener('timeupdate', progressMove);
 video.addEventListener('click', videoPlay);
 video.addEventListener('loadeddata', () => {duration = video.duration});
+
+progress.addEventListener('change', setCurrentTime);
 
 playBtn.addEventListener('click', playOrPause);
 stopBtn.addEventListener('click', videoStop);
