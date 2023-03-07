@@ -14,14 +14,15 @@ const videoPlayToggle = (): void => {
 
 const updateIcon = (): void => {
   play.children[0].className = video.paused
-    ? "fa fa-pause fa-2x"
-    : "fa fa-play fa-2x";
+    ? "fa fa-play fa-2x"
+    : "fa fa-pause fa-2x";
 };
 
 // - Stop
 const stopVideo = (): void => {
   video.currentTime = 0;
   video.pause();
+  updateIcon();
 };
 
 const updateProgressBar = (): void => {
