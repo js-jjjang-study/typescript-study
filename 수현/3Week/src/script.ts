@@ -7,25 +7,25 @@ const progress = document.getElementById("progress") as HTMLInputElement;
 const timestamp = document.getElementById("timestamp") as HTMLSpanElement;
 
 // - Play/pause
-const videoPlayToggle = (): void => {
+const videoPlayToggle = (): changeValueFunc => {
   video.paused ? video.play() : video.pause();
   updateIcon();
 };
 
-const updateIcon = (): void => {
-  play.children[0].className = video.paused
-    ? "fa fa-play fa-2x"
-    : "fa fa-pause fa-2x";
-};
-
 // - Stop
-const stopVideo = (): void => {
+const stopVideo = (): changeValueFunc => {
   video.currentTime = 0;
   video.pause();
   updateIcon();
 };
 
-const updateProgressBar = (): void => {
+const updateIcon = (): changeValueFunc => {
+  play.children[0].className = video.paused
+    ? "fa fa-play fa-2x"
+    : "fa fa-pause fa-2x";
+};
+
+const updateProgressBar = (): changeValueFunc => {
   progress.value = String((video.currentTime / video.duration) * 100);
   const minutes: string = `0${~~(video.currentTime / 60)}`.slice(-2);
   const seconds: string = `0${~~(video.currentTime % 60)}`.slice(-2);
@@ -33,7 +33,7 @@ const updateProgressBar = (): void => {
   timestamp!.innerHTML = `${minutes}:${seconds}`;
 };
 
-const setTime = (): void => {
+const setTime = (): changeValueFunc => {
   video.currentTime = (+progress.value * video.duration) / 100;
 };
 
