@@ -27,8 +27,8 @@ const updateIcon = (): changeValueFunc => {
 
 const updateProgressBar = (): changeValueFunc => {
   progress.value = String((video.currentTime / video.duration) * 100);
-  const minutes: string = `0${~~(video.currentTime / 60)}`.slice(-2);
-  const seconds: string = `0${~~(video.currentTime % 60)}`.slice(-2);
+  const minutes: string = `0${video.currentTime / 60}`.slice(-2);
+  const seconds: string = `0${video.currentTime % 60}`.slice(-2);
 
   timestamp!.innerHTML = `${minutes}:${seconds}`;
 };
