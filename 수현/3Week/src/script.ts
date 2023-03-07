@@ -8,18 +8,14 @@ const timestamp = document.getElementById("timestamp") as HTMLSpanElement;
 
 // - Play/pause
 const videoPlayToggle = (): void => {
-  if (video.paused) {
-    video.play();
-  } else {
-    video.pause();
-  }
+  video.paused ? video.play() : video.pause();
   updateIcon();
 };
 
 const updateIcon = (): void => {
-  play.innerHTML = video.paused
-    ? '<i class="fa fa-play fa-2x"></i>'
-    : '<i class="fa fa-pause fa-2x"></i>';
+  play.children[0].className = video.paused
+    ? "fa fa-pause fa-2x"
+    : "fa fa-play fa-2x";
 };
 
 // - Stop
