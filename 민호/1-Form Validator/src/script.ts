@@ -1,12 +1,11 @@
-const form = document.getElementById('form') as HTMLElement;
-const username = document.getElementById('username') as HTMLElement;
-const email = document.getElementById('email') as HTMLElement;
-const password = document.getElementById('password') as HTMLElement;
-const password2 = document.getElementById('password2') as HTMLElement;
+const form = document.getElementById('form') as HTMLFormElement;
+const username = document.getElementById('username') as HTMLInputElement;
+const email = document.getElementById('email') as HTMLInputElement;
+const password = document.getElementById('password') as HTMLInputElement;
+const password2 = document.getElementById('password2') as HTMLInputElement;
 
 // true : 정상 input
 // false : 비정상 input이므로 에러토글 발생
-
 type status = {
   [key: string]: boolean; //index signature
 };

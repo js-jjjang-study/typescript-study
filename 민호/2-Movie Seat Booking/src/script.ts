@@ -1,7 +1,7 @@
 const container = document.querySelector('.container') as HTMLDivElement;
 const seats = document.querySelectorAll(
   '.row .seat:not(.occupied)',
-) as NodeListOf<Element>;
+) as NodeListOf<HTMLElement>;
 const count = document.getElementById('count') as HTMLSpanElement;
 const total = document.getElementById('total') as HTMLSpanElement;
 const movieSelect = document.getElementById('movie') as HTMLSelectElement;
@@ -26,9 +26,6 @@ let movieStatus: movieInfo = {
   moviePirce: Number(movieSelect.value),
 };
 
-
-
-
 // 브라우저 하단에 배치된 선택 좌석 갯수 , 총 금액 메세지 수정 메소드
 const changeText: changeTextFunc = () => {
   let status: seatIndex = JSON.parse(localStorage.getItem('selectedSeats')!);
@@ -38,11 +35,9 @@ const changeText: changeTextFunc = () => {
 };
 
 const initialSetting: initialSettingFunc = () => {
-
   // occupied가 아닌 좌석들의 인덱스를 가지는 배열
   let nonoOccupied: number[] = [];
   seats.forEach((i, index) => {
-
     //i는 div요소를 나타내고 이 로직에서는 div요소의 인덱스가 좌석 번호를 의미함
     nonoOccupied.push(index);
   });
@@ -95,17 +90,18 @@ const initialSetting: initialSettingFunc = () => {
 
 // 좌석 업데이트 메소드
 const updateSeats: updateSeatsFunc = () => {
-  const newSelectedNodes: Element[] = Array.from(
-    document.querySelectorAll('.row .seat.selected') as NodeListOf<Element>,
+  const newSelectedNodes: HTMLElement[] = Array.from(
+    document.querySelectorAll('.row .seat.selected') as NodeListOf<HTMLElement>,
   );
 
-  let arr: number[] = newSelectedNodes.map((i) => {
-    return Array.from(seats).indexOf(i);
+  const seatsArr = Array.from(seats);
+  let selectedSeatsArr: number[] = newSelectedNodes.map((i) => {
+    return seatsArr.indexOf(i);
   });
 
   // 상태 업데이트
   let status: seatIndex = {
-    seatNum: arr,
+    seatNum: selectedSeatsArr,
   };
   seatStatus = { ...status };
 
