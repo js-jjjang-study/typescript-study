@@ -2,6 +2,8 @@ let firstCurrency = document.getElementById('currency-one') as HTMLSelectElement
 let secondCurrency = document.getElementById('currency-two') as HTMLSelectElement;
 const firstAmount = document.getElementById('amount-one') as HTMLInputElement;
 const secondAmount = document.getElementById('amount-two') as HTMLInputElement;
+const swapBtn = document.getElementById('swap') as HTMLButtonElement;
+
 calculate();
 
 function calculate() {
@@ -14,3 +16,11 @@ function calculate() {
       secondAmount.value = `${response.conversion_rates[`${secondCurrency.value}`].toFixed(2)}`;
     });
 }
+
+function currencySwap() {
+  [firstCurrency.value, secondCurrency.value] = [secondCurrency.value, firstCurrency.value];
+}
+
+firstCurrency.addEventListener('change', calculate);
+secondCurrency.addEventListener('change', calculate);
+swapBtn.addEventListener('click', currencySwap);
