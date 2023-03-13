@@ -3,6 +3,8 @@ let secondCurrency = document.getElementById('currency-two') as HTMLSelectElemen
 const firstAmount = document.getElementById('amount-one') as HTMLInputElement;
 const secondAmount = document.getElementById('amount-two') as HTMLInputElement;
 const swapBtn = document.getElementById('swap') as HTMLButtonElement;
+const rateStr = document.getElementById('rate') as HTMLDivElement;
+let newValue = 0;
 
 calculate();
 
@@ -13,14 +15,20 @@ function calculate() {
   fetch(`https://v6.exchangerate-api.com/v6/1b30312d752f5f44f3e59655/latest/${firstCurrency.value}`)
     .then((response) => { return response.json() })
     .then((response) => {
-      secondAmount.value = `${response.conversion_rates[`${secondCurrency.value}`].toFixed(2)}`;
+      newValue = response.conversion_rates[`${secondCurrency.value}`].toFixed(2) * Number(firstAmount.value);
+      secondAmount.value = `${newValue}`;
     });
 }
 
-function currencySwap() {
+function changeRate() {
+
+}
+
+function swapCurrency() {
   [firstCurrency.value, secondCurrency.value] = [secondCurrency.value, firstCurrency.value];
 }
 
 firstCurrency.addEventListener('change', calculate);
 secondCurrency.addEventListener('change', calculate);
-swapBtn.addEventListener('click', currencySwap);
+firstAmount.addEventListener('change', calculate);
+swapBtn.addEventListener('click', swapCurrency);
