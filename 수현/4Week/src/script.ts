@@ -43,11 +43,9 @@ const requestCurrencyAPI = async (fromCurrency: string, toCurrency: string) => {
 };
 
 const exchange = async () => {
-  const fromCurrency = fromCurrencyList.value;
-  const toCurrency = toCurrencyList.value;
   const [rateInfo, convertResult] = await requestCurrencyAPI(
-    fromCurrency,
-    toCurrency
+    fromCurrencyList.value,
+    toCurrencyList.value
   );
   convertedAmount.value = convertResult;
   rate.innerText = rateInfo;
