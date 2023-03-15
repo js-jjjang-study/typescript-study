@@ -7,19 +7,13 @@
 
  */
 
-const fromCurrencyList = document.getElementById(
-  "currency-one"
-)! as HTMLSelectElement;
-const originalAmount = document.getElementById(
-  "amount-one"
-)! as HTMLInputElement;
-
-const toCurrencyList = document.getElementById(
-  "currency-two"
-)! as HTMLSelectElement;
-const convertedAmount = document.getElementById(
-  "amount-two"
-)! as HTMLInputElement;
+const fromCurrencyList =
+  document.querySelector<HTMLSelectElement>("#currency-one")!;
+const originalAmount = document.querySelector<HTMLInputElement>("#amount-one")!;
+const toCurrencyList =
+  document.querySelector<HTMLSelectElement>("#currency-two")!;
+const convertedAmount =
+  document.querySelector<HTMLInputElement>("#amount-two")!;
 const rate = document.getElementById("rate")!;
 const swap = document.getElementById("swap")!;
 
@@ -67,10 +61,15 @@ const swapHandler = () => {
   exchange();
 };
 
-fromCurrencyList.addEventListener("change", exchange);
-originalAmount.addEventListener("change", exchange);
-toCurrencyList.addEventListener("change", exchange);
-convertedAmount.addEventListener("change", exchange);
+document.addEventListener("change", (e) => {
+  const target = e.target as HTMLElement;
+  if (
+    target.matches("#currency-one, #amount-one, #currency-two, #amount-two")
+  ) {
+    exchange();
+  }
+});
+
 swap.addEventListener("click", swapHandler);
 
 exchange();
