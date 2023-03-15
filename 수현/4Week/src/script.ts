@@ -61,13 +61,10 @@ const swapHandler = () => {
   exchange();
 };
 
-document.addEventListener("change", (e) => {
-  const target = e.target as HTMLElement;
-  if (
-    target.matches("#currency-one, #amount-one, #currency-two, #amount-two")
-  ) {
-    exchange();
-  }
+const currencyForm = document.getElementsByClassName("currency")!;
+
+[...currencyForm].forEach((element) => {
+  element.addEventListener("click", exchange);
 });
 
 swap.addEventListener("click", swapHandler);
