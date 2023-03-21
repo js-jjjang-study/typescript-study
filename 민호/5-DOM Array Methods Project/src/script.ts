@@ -61,7 +61,7 @@ const render = (): void => {
   }
 };
 
-const init = async () => {
+const init = async () : Promise<void> => {
   const userData = await getUser(3);
   setUserInfo(userData);
 };
