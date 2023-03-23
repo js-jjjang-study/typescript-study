@@ -6,13 +6,19 @@ const calculateBtn = document.getElementById('calculate-wealth') as HTMLButtonEl
 const main = document.getElementById('main');
 let persons = Array.from(document.getElementsByClassName('person'));
 
-
 init();
 
 function init() {
   for(let i = 0; i < 3; i++) {
     addUser();
   }
+}
+
+function updatePersons(persons: Array<Element>) {
+  main!.innerHTML = '<h2><strong>Person</strong> Wealth</h2>';
+  persons.forEach(el => {
+    main!.insertAdjacentElement('beforeend', el);
+  })
 }
 
 function makeWealth(num?: Number) {
@@ -55,11 +61,17 @@ function double() { // map() 사용
 }
 
 function showMillionaires() { // filter() 사용
-
+  persons = Array.from(document.getElementsByClassName('person'));
+  persons = persons.filter(el => getWealth(<String>el.lastChild?.nodeValue) >= 1000000 );
+  updatePersons(persons);
 }
 
 function sort() { // sort() 사용
-
+  persons = Array.from(document.getElementsByClassName('person'));
+  persons.sort(function(a, b){
+    return +getWealth(<String>a.lastChild?.nodeValue) - +getWealth(<String>b.lastChild?.nodeValue);
+  });
+  updatePersons(persons);
 }
 
 function calculateWealth() { // reduce() 사용
