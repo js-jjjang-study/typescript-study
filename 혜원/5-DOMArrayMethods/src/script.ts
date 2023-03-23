@@ -75,7 +75,20 @@ function sort() { // sort() 사용
 }
 
 function calculateWealth() { // reduce() 사용
+  persons = Array.from(document.getElementsByClassName('person'));
+  const wealthArr = persons.map(el => { return getWealth(<String>el.lastChild?.nodeValue) });
+  const totalWealth = wealthArr.reduce((acc, cur) => {
+    return +acc + +cur;
+  })
 
+  const totalElement = document.createElement('h3');
+  const totalString = document.createElement('strong');
+  totalString.innerText = 'Total';
+  const totalWealthStr = document.createTextNode(makeWealth(totalWealth));
+  totalElement.appendChild(totalString);
+  totalElement.appendChild(totalWealthStr);
+
+  main!.insertAdjacentElement('beforeend', totalElement);
 }
 
 addUserBtn.addEventListener('click', addUser);
