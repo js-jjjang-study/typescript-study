@@ -4,6 +4,8 @@ const showMillionBtn = document.getElementById('show-millionaires') as HTMLButto
 const sortBtn = document.getElementById('sort') as HTMLButtonElement;
 const calculateBtn = document.getElementById('calculate-wealth') as HTMLButtonElement;
 const main = document.getElementById('main');
+let persons = Array.from(document.getElementsByClassName('person'));
+
 
 init();
 
@@ -13,9 +15,18 @@ function init() {
   }
 }
 
-function makeWealth() {
+function makeWealth(num?: Number) {
+  if(num){
+    return `\$${num.toLocaleString('en-US')}.00`;
+  }
   const wealth = Math.floor(Math.random() * 1000000).toLocaleString('en-US');
   return `\$${wealth}.00`;
+}
+
+// 문자열에서 '$'와 '.00' 떼고 wealth 값만 가져오는 함수
+function getWealth(str: String): Number {
+  str = str.replace(/\$|.00|\,/g, '');
+  return Number(str);
 }
 
 function addUser() {
@@ -35,7 +46,12 @@ function addUser() {
 }
 
 function double() { // map() 사용
-
+  persons = Array.from(document.getElementsByClassName('person'));
+  persons.map(el => {
+    const doubleWealth = +getWealth(<String>el.lastChild?.nodeValue) * 2;
+    const doubleWealthStr = makeWealth(doubleWealth);
+    el.lastChild!.nodeValue = doubleWealthStr;
+  })
 }
 
 function showMillionaires() { // filter() 사용
