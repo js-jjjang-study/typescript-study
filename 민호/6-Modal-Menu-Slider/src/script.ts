@@ -38,8 +38,8 @@ const [showModal, setShowModal] = useState({
   stateName: 'modal',
 } as modalState);
 
-const toggleAction = (e: Event) => {
-  let current = navToggle();
+const toggleAction = (e: Event) : void => {
+  const current: toggleState = navToggle();
 
   // 토글이 되어 있는 상황일 때(=navbar가 열려 있는 상황일 때)
   if (current.isToggle) {
@@ -70,8 +70,8 @@ const toggleAction = (e: Event) => {
   }
 };
 
-const modalAction = () => {
-  let current = showModal();
+const modalAction = () : void => {
+  const current: modalState = showModal();
 
   // if (current.isShow) {
   //   setShowModal({ isShow: false, stateName: 'modal' });
@@ -89,21 +89,22 @@ const modalAction = () => {
 // 리렌더링 로직들
 // 상태가 true인 값으로 리렌더링이 호출 되면 navbar or modal을 엽니다
 // 상태가 false인 값으로 리렌더링이 호출 되면 navbar or modal을 닫습니다
-const toggleRender = () => {
-  if (navToggle().isToggle) {
+const toggleRender = () : void=> {
+  const current: toggleState =navToggle()
+  if (current.isToggle) {
     document.body.classList.add('show-nav');
   }
-  if (!navToggle().isToggle) {
+  if (!current.isToggle) {
     document.body.classList.remove('show-nav');
   }
 };
 
-const modalRender = () => {
-  console.log(showModal());
-  if (showModal().isShow) {
+const modalRender = () : void => {
+  const current: modalState = showModal()
+  if (current.isShow) {
     modal.classList.add('show-modal');
   }
-  if (!showModal().isShow) {
+  if (!current.isShow) {
     modal.classList.remove('show-modal');
   }
 };
