@@ -1,8 +1,11 @@
 const body = document.body;
 const toggle = document.getElementById('toggle');
 const navBar = document.getElementById('navbar');
+const modal = document.getElementById('modal');
+const openBtn = document.getElementById('open');
+const closeBtn = document.getElementById('close');
 
-function showNav() {
+function handleNavBar() {
   if(body!.className == '') {
     body!.className = 'show-nav';
     return;
@@ -14,4 +17,16 @@ function showNav() {
   }
 }
 
-toggle?.addEventListener('click', showNav);
+function showModal() {
+  modal!.style.display = 'block';
+  return;
+}
+
+function hideModal() {
+  modal!.style.display ='none';
+  return;
+}
+
+toggle?.addEventListener('click', handleNavBar);
+openBtn?.addEventListener('click', showModal);
+closeBtn?.addEventListener('click', hideModal);
