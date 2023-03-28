@@ -61,7 +61,7 @@ const calculateWealth = () => {
 };
 
 const updateUsers = () => {
-    main.innerHTML = '<h2><strong>Person</strong> Wealth</h2>'; // 이 코드가 왜 필요할까? 없으면 값이 이상하게 추가됨
+    main.innerHTML = '<h2><strong>Person</strong> Wealth</h2>';
     users.forEach((user) => {
         const divElement = document.createElement('div');
         divElement.classList.add('person');
