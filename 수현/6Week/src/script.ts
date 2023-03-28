@@ -15,8 +15,7 @@ Add functionality to make modal open/close on button click
   // Navbar
   const closeNavBar = (e: MouseEvent): void => {
     const isNavbar = navbar.contains(e.target as Node);
-    const isToggle = toggleBtn.contains(e.target as Node);
-    if (BODY.classList.contains("show-nav") && !isNavbar && !isToggle) {
+    if (BODY.classList.contains("show-nav") && !isNavbar) {
       toggleBtn.click();
     }
   };
