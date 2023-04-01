@@ -11,6 +11,8 @@
     <h1>Hangman</h1>
     <p>Find the hidden word - Enter a letter</p>
     <div class="game-container">
+
+      <!-- 행맨 그림 -->
       <svg height="250" width="200" class="figure-container">
         <!-- Rod -->
         <line x1="60" y1="20" x2="140" y2="20" />
@@ -30,14 +32,16 @@
         <line x1="140" y1="150" x2="160" y2="180" class="figure-part" />
       </svg>
 
+      <!-- 오답 글자들을 행맨 옆에 보여주는 공간 -->
       <div class="wrong-letters-container">
         <div id="wrong-letters"></div>
       </div>
 
+      <!-- 정답 글자들을 하나씩 보여주는 공간 -->
       <div class="word" id="word"></div>
     </div>
 
-    <!-- Container for final message -->
+    <!-- 게임이 끝났을 때(정답or실패 둘 다) 발생하는 문구,재시작 버튼 -->
     <div class="popup-container" id="popup-container">
       <div class="popup">
         <h2 id="final-message"></h2>
@@ -46,7 +50,7 @@
       </div>
     </div>
 
-    <!-- Notification -->
+    <!-- 입력한 키가 이미 입력이 됐던 경우에 발생하는 문구 -->
     <div class="notification-container" id="notification-container">
       <p>You have already entered this letter</p>
     </div>
