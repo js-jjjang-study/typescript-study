@@ -57,20 +57,23 @@ const [getPlayableState, setPlayableState] = useState({
   isPlayable: true,
 } as playableState);
 
-const words = ['application', 'programming', 'interface', 'wizard'];
-const getRandomAnswer = () => {
+
+const getRandomAnswer = () : string => {
+  const words = ['application', 'programming', 'interface', 'wizard'];
+
   let randomIndex = Math.floor(Math.random() * words.length);
 
   return words[randomIndex];
 };
 
 // 글자를 맞췄을 때의 리렌더링 로직
-const answerRender = () => {
-  const current = getAnswerState().words;
+const answerRender = () : void => {
+  const current : string [] = getAnswerState().words;
   correct.innerHTML = '';
   const compareResult = randomAnswer.split('').map((i) => {
     return current.includes(i) ? i : '';
   });
+  console.log(compareResult)
 
   for (let i of compareResult) {
     correct.innerHTML += `<span class="letter">${i}</span>`;
@@ -90,8 +93,8 @@ const answerRender = () => {
 };
 
 // 글자를 틀렸을 때의 리렌더링 로직
-const wrongRender = () => {
-  const current = getwrongState().words;
+const wrongRender = () : void => {
+  const current : string [] = getwrongState().words;
 
   if (current.length > 0) {
     wrong.innerHTML = `<p>Wrong</p>`;
@@ -104,7 +107,6 @@ const wrongRender = () => {
   }
 
   for (let i = 0; i < hangman.length; i++) {
-    console.log(`current.length ${current.length}`);
     if (i < current.length) hangman[i].style.display = 'block';
     if (i >= current.length) hangman[i].style.display = 'none';
   }
@@ -124,7 +126,7 @@ const wrongRender = () => {
 };
 
 // 이미 입력했던 값을 입력했을 때 발생
-const showDuplication = () => {
+const showDuplication = () : void => {
   duplication.classList.add('show');
 
   setTimeout(() => {
@@ -138,12 +140,12 @@ console.log(randomAnswer);
 answerRender();
 
 // 키보드 입력 이벤트
-const keyboardEvent = (e: KeyboardEvent) => {
-  let currentPlayable = getPlayableState().isPlayable;
+const keyboardEvent = (e: KeyboardEvent) : void  => {
+  
+  if (!getPlayableState().isPlayable) return;
+
   let currentAnswer = getAnswerState().words;
   let currentWrong = getwrongState().words;
-
-  if (!currentPlayable) return;
 
   let keyboardInput = e.key.toLowerCase();
 
@@ -183,12 +185,16 @@ const keyboardEvent = (e: KeyboardEvent) => {
 };
 
 // 재시작
-const reStart = () => {
+const reStart = () : void => {
+  
+  // 정답 재생성
   randomAnswer = getRandomAnswer();
   console.log(randomAnswer);
 
+  // 팝업창 지우기
   popup.style.display = 'none';
 
+  // 모든 상태 초기화 및 초기화된 값을 기반으로 리렌더링
   setPlayableState({
     stateName: 'playableState',
     isPlayable: true,
