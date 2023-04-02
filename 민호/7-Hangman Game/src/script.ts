@@ -5,7 +5,7 @@ const popup = document.getElementById('popup-container') as HTMLDivElement;
 const playAgainButton = document.getElementById('play-button') as HTMLButtonElement;
 const finalMessage = document.getElementById('final-message') as HTMLElement;
 const finalMessageRevealWord = document.getElementById('final-message-reveal-word') as HTMLElement;
-const hangman = Array.from(document.querySelectorAll('.figure-part')) as HTMLElement[];
+const hangman = Array.from(document.querySelectorAll('.figure-part')) as HTMLElement[]; // HTML요소들이 들어있는 일반 배열
 
 type answerState = {
   stateName: 'answerState';
