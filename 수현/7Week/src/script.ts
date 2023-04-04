@@ -25,14 +25,14 @@ const notificationContainerEl = document.getElementById(
   "notification-container"
 ) as HTMLDivElement;
 
-type LetterStore = null | string[];
+type Word = string;
 
-const SUCCESSTEXT = "성공하셨습니다!! 다시 플레이 하시겠습니까?";
-const FAILTEXT = "실패하였습니다. 다시 플레이 하시겠습니까?";
+const SUCCESS_MESSAGE = "성공하셨습니다!! 다시 플레이 하시겠습니까?";
+const FAIL_MESSAGE = "실패하였습니다. 다시 플레이 하시겠습니까?";
 const words = ["typescript", "javascript", "react"];
-const correctLetters: LetterStore = [];
-const enteredLetters: LetterStore = [];
-const wrongLetters: LetterStore = [];
+const correctLetters: Word[] = [];
+const enteredLetters: Word[] = [];
+const wrongLetters: Word[] = [];
 let isEnd = false;
 let answer = words[Math.floor(Math.random() * words.length)];
 let blankCnt = answer.length;
@@ -56,14 +56,11 @@ const isHangmanDead = () => {
 };
 
 const updateCorrectLetters = () => {
-  wordEl.innerHTML = `${answer
+  const letters = answer
     .split("")
-    .map((letter) => {
-      return `<label class="letter">${
-        correctLetters.includes(letter) ? letter : ""
-      }</label>`;
-    })
-    .join("")}`;
+    .map((letter) => (correctLetters.includes(letter) ? letter : "_"));
+
+  wordEl.textContent = letters.join(" ");
 };
 
 const updateWrongLetters = () => {
@@ -119,8 +116,8 @@ window.addEventListener("keydown", (e) => {
     if (isCorrectAll() || isHangmanDead()) {
       isEnd = true;
       finalMessageRevealWordEl.innerHTML = isCorrectAll()
-        ? SUCCESSTEXT
-        : FAILTEXT;
+        ? SUCCESS_MESSAGE
+        : FAIL_MESSAGE;
       popupEl.style.display = "flex";
 
       playButtonEl.addEventListener("click", (e) => {
