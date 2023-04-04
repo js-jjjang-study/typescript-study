@@ -27,8 +27,8 @@ const notificationContainerEl = document.getElementById(
 
 type Word = string;
 
-const SUCCESS_MESSAGE = "성공하셨습니다!! 다시 플레이 하시겠습니까?";
-const FAIL_MESSAGE = "실패하였습니다. 다시 플레이 하시겠습니까?";
+const SUCCESS_MESSAGE = "성공하셨습니다!!😁 다시 플레이 하시겠습니까?";
+const FAIL_MESSAGE = "실패하였습니다😭 다시 플레이 하시겠습니까?";
 const words = ["typescript", "javascript", "react"];
 const correctLetters: Word[] = [];
 const enteredLetters: Word[] = [];
@@ -37,7 +37,7 @@ let isEnd = false;
 let answer = words[Math.floor(Math.random() * words.length)];
 let blankCnt = answer.length;
 
-const reset = () => {
+const reset = (): void => {
   correctLetters.splice(0);
   enteredLetters.splice(0);
   wrongLetters.splice(0);
@@ -47,15 +47,7 @@ const reset = () => {
   popupEl.style.display = "none";
 };
 
-const isCorrectAll = () => {
-  return blankCnt === 0;
-};
-
-const isHangmanDead = () => {
-  return wrongLetters.length === 6;
-};
-
-const updateCorrectLetters = () => {
+const updateCorrectLetters = (): void => {
   const letters = answer
     .split("")
     .map((letter) => (correctLetters.includes(letter) ? letter : "_"));
@@ -63,15 +55,15 @@ const updateCorrectLetters = () => {
   wordEl.textContent = letters.join(" ");
 };
 
-const updateWrongLetters = () => {
-  wrongLettersEl.innerHTML = `${wrongLetters.join(", ")}`;
+const updateWrongLetters = (): void => {
+  wrongLettersEl.textContent = `${wrongLetters.join(", ")}`;
 
   figurePartEl.forEach((part, idx) => {
     part.style.display = idx < wrongLetters.length ? "block" : "none";
   });
 };
 
-const update = () => {
+const update = (): void => {
   updateCorrectLetters();
   updateWrongLetters();
 };
@@ -91,9 +83,21 @@ const checkAnswer = (letter: string) => {
   }
 };
 
-const showNotification = () => {
+const showNotification = (): void => {
   notificationContainerEl.classList.add("show");
   setTimeout(() => notificationContainerEl.classList.remove("show"), 1000);
+};
+
+const isCorrectAll = (): boolean => {
+  return blankCnt === 0;
+};
+
+const isHangmanDead = (): boolean => {
+  return wrongLetters.length === 6;
+};
+
+const isGameEnd = () => {
+  return isCorrectAll() || isHangmanDead();
 };
 
 window.addEventListener("keydown", (e) => {
@@ -113,14 +117,14 @@ window.addEventListener("keydown", (e) => {
 
     update();
 
-    if (isCorrectAll() || isHangmanDead()) {
+    if (isGameEnd()) {
       isEnd = true;
-      finalMessageRevealWordEl.innerHTML = isCorrectAll()
+      popupEl.style.display = "flex";
+      finalMessageRevealWordEl.textContent = isCorrectAll()
         ? SUCCESS_MESSAGE
         : FAIL_MESSAGE;
-      popupEl.style.display = "flex";
 
-      playButtonEl.addEventListener("click", (e) => {
+      playButtonEl.addEventListener("click", () => {
         reset();
         update();
       });
