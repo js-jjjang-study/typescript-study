@@ -3,8 +3,15 @@ const testWord: string = 'typescript';
 const figurePart = document.getElementsByClassName('figure-part');
 const word = document.getElementById('word');
 const notification = document.getElementById('notification-container');
+const popup = document.getElementById('popup-container');
+const playBtn = document.getElementById('play-button');
+const wrongLetters = document.getElementById('wrong-letters');
+
 const inputKeys = new Array<string>;
+const wrongArr = new Array<string>;
 let letters = document.getElementsByClassName('letter');
+let correctNum = 0;
+let flag: boolean = true;
 
 makeWord();
 
@@ -34,13 +41,6 @@ function checkKey(e: KeyboardEvent) {
 
     return;
   }
-
-  // keys 에 key 가 있나 확인
-  // 있으면 팝업
-  // 없으면 word에 포함되어 있나 확인
-  // 포함되어 있으면 아래 변경
-  // 포함되어 있지 않으면 오른쪽 변경
-  
 }
 
 function showNotification() {
@@ -56,12 +56,51 @@ function keyCorrect(key: string) {
     if(testWord[i] == key) {
       const letter = letters[i] as HTMLDivElement;
       letter.style.color = '#fff';
+      correctNum++;
     }
   }
+
+  checkEnd();
 }
 
 function keyWrong(key: string) {
+  wrongArr.push(key);
+  const currentFigure = figurePart[wrongArr.length - 1] as SVGElement;
+  const spanArr = new Array<string>;
   
+  currentFigure.style.display = 'flex';
+
+  wrongArr.forEach(el => {
+    const newSpan = `<span>${el}</span>`
+    spanArr.push(newSpan);
+  })
+
+  const pMsg = document.createElement('p');
+  pMsg.innerText = 'Wrong';
+  wrongLetters!.innerHTML = '';
+  wrongLetters?.insertAdjacentElement('beforeend', pMsg);
+  wrongLetters?.insertAdjacentHTML('beforeend', `${spanArr.join(',')}`);
+
+  checkEnd();
+}
+
+function checkEnd() {
+  const h2 = popup!.children[0].children[0];
+
+  if(wrongArr.length > 5) {
+    popup!.style.display = 'flex';
+    h2.innerHTML = "Unfortunately you lost. 😕";
+    return;
+  }
+
+  if(correctNum == testWord.length) {
+    popup!.style.display = 'flex';
+    h2.innerHTML = "Congratulations! You won! 😃";
+    return;
+  }
 }
 
 window.addEventListener("keydown", (e) => checkKey(e));
+playBtn?.addEventListener('click', () => {
+  window.location.reload();
+});
