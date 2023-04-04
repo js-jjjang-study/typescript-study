@@ -4,6 +4,7 @@ const figurePart = document.getElementsByClassName('figure-part');
 const word = document.getElementById('word');
 const notification = document.getElementById('notification-container');
 const inputKeys = new Array<string>;
+let letters = document.getElementsByClassName('letter');
 
 makeWord();
 
@@ -27,6 +28,10 @@ function checkKey(e: KeyboardEvent) {
 
   if(!inputKeys.includes(key)) {
     inputKeys.push(key);
+
+    if(testWord.includes(key)) keyCorrect(key);
+    else keyWrong(key);
+
     return;
   }
 
@@ -43,6 +48,20 @@ function showNotification() {
   setTimeout(() => {
     notification!.className = 'notification-container';
   }, 2000);
+}
+
+function keyCorrect(key: string) {
+  letters = document.getElementsByClassName('letter');
+  for(let i = 0; i < testWord.length; i++) {
+    if(testWord[i] == key) {
+      const letter = letters[i] as HTMLDivElement;
+      letter.style.color = '#fff';
+    }
+  }
+}
+
+function keyWrong(key: string) {
+  
 }
 
 window.addEventListener("keydown", (e) => checkKey(e));
