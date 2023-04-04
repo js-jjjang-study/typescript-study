@@ -27,8 +27,8 @@ const notificationContainerEl = document.getElementById(
 
 type LetterStore = null | string[];
 
-const successText = "성공하셨습니다!! 다시 플레이 하시겠습니까?";
-const failText = "실패하였습니다. 다시 플레이 하시겠습니까?";
+const SUCCESSTEXT = "성공하셨습니다!! 다시 플레이 하시겠습니까?";
+const FAILTEXT = "실패하였습니다. 다시 플레이 하시겠습니까?";
 const words = ["typescript", "javascript", "react"];
 const correctLetters: LetterStore = [];
 const enteredLetters: LetterStore = [];
@@ -70,7 +70,6 @@ const updateWrongLetters = () => {
   wrongLettersEl.innerHTML = `${wrongLetters.join(", ")}`;
 
   figurePartEl.forEach((part, idx) => {
-    console.log(part);
     part.style.display = idx < wrongLetters.length ? "block" : "none";
   });
 };
@@ -104,7 +103,7 @@ window.addEventListener("keydown", (e) => {
   if (!isEnd) {
     const letter = e.key.toLowerCase();
     // 알파벳인지 확인
-    if (letter.charCodeAt(0) >= 97 && letter.charCodeAt(0) <= 122) {
+    if (/^[a-z]$/.test(letter)) {
       // 이미 입력된 글자인지 확인
       if (isEneterd(letter)) {
         showNotification();
@@ -120,8 +119,8 @@ window.addEventListener("keydown", (e) => {
     if (isCorrectAll() || isHangmanDead()) {
       isEnd = true;
       finalMessageRevealWordEl.innerHTML = isCorrectAll()
-        ? successText
-        : failText;
+        ? SUCCESSTEXT
+        : FAILTEXT;
       popupEl.style.display = "flex";
 
       playButtonEl.addEventListener("click", (e) => {
