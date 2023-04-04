@@ -11,7 +11,6 @@ const inputKeys = new Array<string>;
 const wrongArr = new Array<string>;
 let letters = document.getElementsByClassName('letter');
 let correctNum = 0;
-let flag: boolean = true;
 
 makeWord();
 
@@ -66,9 +65,15 @@ function keyCorrect(key: string) {
 function keyWrong(key: string) {
   wrongArr.push(key);
   const currentFigure = figurePart[wrongArr.length - 1] as SVGElement;
-  const spanArr = new Array<string>;
   
   currentFigure.style.display = 'flex';
+
+  setWrongLetters();
+  checkEnd();
+}
+
+function setWrongLetters() {
+  const spanArr = new Array<string>;
 
   wrongArr.forEach(el => {
     const newSpan = `<span>${el}</span>`
@@ -80,8 +85,6 @@ function keyWrong(key: string) {
   wrongLetters!.innerHTML = '';
   wrongLetters?.insertAdjacentElement('beforeend', pMsg);
   wrongLetters?.insertAdjacentHTML('beforeend', `${spanArr.join(',')}`);
-
-  checkEnd();
 }
 
 function checkEnd() {
