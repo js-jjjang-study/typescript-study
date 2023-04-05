@@ -30,11 +30,12 @@ type Word = string;
 const SUCCESS_MESSAGE = "성공하셨습니다!!😁 다시 플레이 하시겠습니까?";
 const FAIL_MESSAGE = "실패하였습니다😭 다시 플레이 하시겠습니까?";
 const words = ["typescript", "javascript", "react"];
+let answer = words[Math.floor(Math.random() * words.length)];
 const correctLetters: Word[] = [];
 const enteredLetters: Word[] = [];
 const wrongLetters: Word[] = [];
+const END = 6;
 let isEnd = false;
-let answer = words[Math.floor(Math.random() * words.length)];
 let blankCnt = answer.length;
 
 const reset = (): void => {
@@ -93,7 +94,7 @@ const isCorrectAll = (): boolean => {
 };
 
 const isHangmanDead = (): boolean => {
-  return wrongLetters.length === 6;
+  return wrongLetters.length === END;
 };
 
 const isGameEnd = () => {
