@@ -26,5 +26,5 @@
     const closeModal = () => modal.classList.remove('show-modal');
     openBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => e.target === modal ? closeModal() : false);
+    window.addEventListener('click', (e) => e.target === modal && closeModal());
 }
